@@ -9,10 +9,10 @@ final class PM_Send extends GWF_Method
 	public function getHTAccess()
 	{
 		return
-			'RewriteRule ^pm/create$ index.php?mo=PM&me=Send'.PHP_EOL.
-			'RewriteRule ^pm/reply/to/(\d+)/ index.php?mo=PM&me=Send&reply=$1'.PHP_EOL.
-			'RewriteRule ^pm/quote/reply/to/(\d+)/ index.php?mo=PM&me=Send&quote=$1'.PHP_EOL.
-			'RewriteRule ^pm/send/to/([^/]+)$ index.php?mo=PM&me=Send&to=$1'.PHP_EOL;
+			'RewriteRule ^pm/create$ index.php?mo=PM&me=Send [QSA]'.PHP_EOL.
+			'RewriteRule ^pm/reply/to/(\d+)/ index.php?mo=PM&me=Send&reply=$1 [QSA]'.PHP_EOL.
+			'RewriteRule ^pm/quote/reply/to/(\d+)/ index.php?mo=PM&me=Send&quote=$1 [QSA]'.PHP_EOL.
+			'RewriteRule ^pm/send/to/([^/]+)$ index.php?mo=PM&me=Send&to=$1 [QSA]'.PHP_EOL;
 	}
 	
 	public function execute()
@@ -45,7 +45,7 @@ final class PM_Send extends GWF_Method
 			return $this->reply($pmid, true);
 		}
 		
-		if (false !== ($username = Common::getGet('to'))) {
+		if (false !== ($username = Common::getRequest('to'))) {
 			return $this->create2($username); # parameter username not needet: gizmore check this
 		}
 		
@@ -68,7 +68,7 @@ final class PM_Send extends GWF_Method
 			return $this->module->error('err_bot');
 		}
 		
-		if (false !== ($uname = Common::getGet('to')))
+		if (false !== ($uname = Common::getRequest('to')))
 		{
 			if ( (false === ($this->rec = GWF_User::getByName($uname))) || ($this->rec->isDeleted()))
 			{
@@ -146,12 +146,18 @@ final class PM_Send extends GWF_Method
 		if ( (false === ($this->rec = GWF_User::getByName(Common::getPost('username')))) && (false === ($this->rec = GWF_User::getByName(Common::getPost('username_sel')))) ) {
 			return GWF_HTML::err('ERR_UNKNOWN_USER').$this->module->requestMethodB('Overview');
 		}
-		GWF_Website::redirect(GWF_WEB_ROOT.'pm/send/to/'.$this->rec->urlencode('user_name'));
-		die();
+		if (GWF_Website::isAjax()) {
+			$_GET['to'] = Common::getPost('username');
+			return $this->templateSend();
+		}
+		else {
+			GWF_Website::redirect(GWF_WEB_ROOT.'pm/send/to/'.$this->rec->urlencode('user_name'));
+			die();
+		}
 	}
 	private function create2()
 	{
-		if (false === ($this->rec = GWF_User::getByName(Common::getGet('to')))) {
+		if (false === ($this->rec = GWF_User::getByName(Common::getRequest('to')))) {
 			return GWF_HTML::err('ERR_UNKNOWN_USER').$this->module->requestMethodB('Overview');
 		}
 		return $this->templateSend();
@@ -172,6 +178,7 @@ final class PM_Send extends GWF_Method
 			'title' => array(GWF_Form::STRING, $this->getFormTitle(), $this->module->lang('th_pm_title')),
 			'message' => array(GWF_Form::MESSAGE, $this->getFormMessage(), $this->module->lang('th_pm_message')),
 			'ignore' => array(GWF_Form::VALIDATOR),
+			'to' => array(GWF_Form::HIDDEN, $this->rec->getName()),
 // 			'limits' => array(GWF_Form::VALIDATOR)
 		);
 		if (!GWF_User::isLoggedIn() && $this->module->cfgGuestCaptcha()) {
@@ -335,6 +342,5 @@ final class PM_Send extends GWF_Method
 	public function validate_ignore(Module_PM $module, $arg) { return $this->module->validate_ignore($this->rec); }
 	public function validate_title(Module_PM $module, $arg) { return $this->module->validate_title($arg); }
 	public function validate_message(Module_PM $module, $arg) { return $this->module->validate_message($arg); }
+	public function validate_to(Module_PM $module, $arg) { return false; }
 }
-
-?>

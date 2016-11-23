@@ -6,7 +6,7 @@ final class PM_Edit extends GWF_Method
 	
 	public function getHTAccess()
 	{
-		return 'RewriteRule ^pm/edit/(\d+)/? index.php?mo=PM&me=Edit&pmid=$1'.PHP_EOL;
+		return 'RewriteRule ^pm/edit/(\d+)/? index.php?mo=PM&me=Edit&pmid=$1 [QSA]'.PHP_EOL;
 	}
 	
 	public function execute()

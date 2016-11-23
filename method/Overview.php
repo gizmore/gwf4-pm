@@ -11,10 +11,10 @@ final class PM_Overview extends GWF_Method
 	public function getHTAccess()
 	{
 		return
-			'RewriteRule ^pm$ index.php?mo=PM&me=Overview&by=pm_date&dir=DESC&page=1'.PHP_EOL.
-			'RewriteRule ^pm/folder/(\d+)/[^/]+/by/page-([0-9]+)$ index.php?mo=PM&me=Overview&folder=$1&page=$2'.PHP_EOL.
-			'RewriteRule ^pm/folder/(\d+)/[^/]+/by/([^/]+)/([ADESC,]{0,})/page-([0-9]+)$ index.php?mo=PM&me=Overview&folder=$1&by=$2&dir=$3&page=$4'.PHP_EOL.
-			'RewriteRule ^pm/folders/(\d+)/[^/]+/by/([^/]+)/([ADESC,]{0,})/page-([0-9]+)$ index.php?mo=PM&me=Overview&folder=$1&fby=$2&fdir=$3&fpage=$4'.PHP_EOL;
+			'RewriteRule ^pm$ index.php?mo=PM&me=Overview&by=pm_date&dir=DESC&page=1 [QSA]'.PHP_EOL.
+			'RewriteRule ^pm/folder/(\d+)/[^/]+/by/page-([0-9]+)$ index.php?mo=PM&me=Overview&folder=$1&page=$2 [QSA]'.PHP_EOL.
+			'RewriteRule ^pm/folder/(\d+)/[^/]+/by/([^/]+)/([ADESC,]{0,})/page-([0-9]+)$ index.php?mo=PM&me=Overview&folder=$1&by=$2&dir=$3&page=$4 [QSA]'.PHP_EOL.
+			'RewriteRule ^pm/folders/(\d+)/[^/]+/by/([^/]+)/([ADESC,]{0,})/page-([0-9]+)$ index.php?mo=PM&me=Overview&folder=$1&fby=$2&fdir=$3&fpage=$4 [QSA]'.PHP_EOL;
 	}
 	
 	public function getPageMenuLinks()

@@ -5,7 +5,7 @@ final class PM_Options extends GWF_Method
 	public function isLoginRequired() { return true; }
 	public function getHTAccess()
 	{
-		return 'RewriteRule ^pm/options/?$ index.php?mo=PM&me=Options'.PHP_EOL;
+		return 'RewriteRule ^pm/options/?$ index.php?mo=PM&me=Options [QSA]'.PHP_EOL;
 	}
 	
 	public function getPageMenuLinks()

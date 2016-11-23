@@ -7,9 +7,9 @@ final class PM_Show extends GWF_Method
 	public function getHTAccess()
 	{
 		return
-			'RewriteRule ^pm/show/(\d+)/[^/]+$ index.php?mo=PM&me=Show&pmid=$1'.PHP_EOL.
-			'RewriteRule ^pm/show/(\d+)/[^/]+/([^/]+)$ index.php?mo=PM&me=Show&pmid=$1&term=$2'.PHP_EOL.
-			'RewriteRule ^pm/show_translated/(\d+)/[^/]+$ index.php?mo=PM&me=Show&pmid=$1&translate=please'.PHP_EOL;
+			'RewriteRule ^pm/show/(\d+)/[^/]+$ index.php?mo=PM&me=Show&pmid=$1 [QSA]'.PHP_EOL.
+			'RewriteRule ^pm/show/(\d+)/[^/]+/([^/]+)$ index.php?mo=PM&me=Show&pmid=$1&term=$2 [QSA]'.PHP_EOL.
+			'RewriteRule ^pm/show_translated/(\d+)/[^/]+$ index.php?mo=PM&me=Show&pmid=$1&translate=please [QSA]'.PHP_EOL;
 	}
 	
 	public function execute()

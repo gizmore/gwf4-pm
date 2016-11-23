@@ -9,7 +9,7 @@ final class Module_PM extends GWF_Module
 	##################
 	### GWF_Module ###
 	##################
-	public function getVersion() { return 1.05; }
+	public function getVersion() { return 1.06; }
 	public function onLoadLanguage() { return $this->loadLanguage('lang/pm'); }
 	
 	################
@@ -276,5 +276,19 @@ final class Module_PM extends GWF_Module
 		return false;
 	}
 	
+	
+	public function sidebarContent($bar)
+	{
+		if ($bar === 'right') {
+			$this->onLoadLanguage();
+			$user = GWF_User::getStaticOrGuest();
+			$tVars = array(
+				'num_unread' => $this->countUnreadPM($user),
+				'href_pm' => GWF_WEB_ROOT.'pm',
+				'user' => $user,
+			);
+			return $this->template('sidebar.php', $tVars);
+		}
+	}
 	
 }

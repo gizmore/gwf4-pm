@@ -13,8 +13,8 @@ final class PM_Ignore extends GWF_Method
 	public function getHTAccess()
 	{
 		return
-			'RewriteRule ^pm/(do|do_not)/ignore/(\d+)/? index.php?mo=PM&me=Ignore&mode=$1&uid=$2'.PHP_EOL.
-			'RewriteRule ^pm/ignores/by/([^/]+)/([ADESC,]+)/page-(\d+)$ index.php?mo=PM&me=Ignore&by=$1&dir=$2&page=$3'.PHP_EOL;
+			'RewriteRule ^pm/(do|do_not)/ignore/(\d+)/? index.php?mo=PM&me=Ignore&mode=$1&uid=$2 [QSA]'.PHP_EOL.
+			'RewriteRule ^pm/ignores/by/([^/]+)/([ADESC,]+)/page-(\d+)$ index.php?mo=PM&me=Ignore&by=$1&dir=$2&page=$3 [QSA]'.PHP_EOL;
 	}
 	
 	public function execute()
