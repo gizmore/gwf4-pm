@@ -1,3 +1,9 @@
-<h2><?php echo $lang->lang('sidebar_title'); ?></h2>
-<p><?php echo $num_unread; ?></p>
-<p><a href="<?php echo $href_pm; ?>"><?php echo $lang->lang('menu_pm'); ?></a></p>
+<gwf-sidebar-item>
+	<h2><?php echo $lang->lang('sidebar_title'); ?></h2>
+	<div>
+		<p><?php echo $lang->lang('sidebar_info', array($num_unread)); ?></p>
+	</div>
+	<gwf-buttons>
+		<?php echo GWF_Button::generic($lang->lang('sidebar_button'), $href_pm); ?>
+	</gwf-buttons>
+</gwf-sidebar-item>

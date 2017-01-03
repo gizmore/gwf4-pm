@@ -198,4 +198,9 @@ $lang = array(
 	'err_user_pmo_level' => 'This user requires you to have a userlevel of %s to send him PM.',
 	'th_pmo_level' => 'Min userlevel of sender',
 	'tt_pmo_level' => 'Set a minimal userlevel requirement to allow to send you PM',
+
+	# v4.00 (sidebar)
+	'sidebar_title' => 'Private Messages',
+	'sidebar_info' => 'You have %s unread PM.',
+	'sidebar_button' => 'PM manager',
 );
