@@ -32,11 +32,6 @@ final class PM_Overview extends GWF_Method
 	{
 		GWF_Website::addJavascript(GWF_WEB_ROOT.'js/module/PM/gwf_pm.js');
 		
-		if (false === ($user = GWF_Session::getUser()))
-		{
-			return $this->templateGuests();
-		}
-		
 		if (false !== ($error = $this->sanitize()))
 		{
 			return $error;
@@ -74,6 +69,7 @@ final class PM_Overview extends GWF_Method
 			}
 		}
 		
+		$this->user = GWF_User::getStaticOrGuest()->persistentGuest();
 		$this->fid = $fid = $this->folder->getID();
 		$uid = GWF_Session::getUserID();
 		$del = GWF_PM::OWNER_DELETED;

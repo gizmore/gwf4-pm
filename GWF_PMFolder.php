@@ -39,7 +39,7 @@ final class GWF_PMFolder extends GDO
 	
 	public static function getByName($name, $user=true)
 	{
-		if ($user === true) { $user = GWF_Session::getUser(); }
+		if ($user === true) { $user = GWF_User::getStaticOrGuest(); }
 		$uid = $user->getID();
 		$name = GDO::escape($name);
 		return self::table(__CLASS__)->selectFirst('1', "pmf_name='$name' AND pmf_uid=$uid") !== false;
@@ -141,7 +141,7 @@ final class GWF_PMFolder extends GDO
 	##############
 	public static function getSelectS(Module_PM $module, $selected='0', $name='folders')
 	{
-		return self::getSelect($module, GWF_Session::getUser(), $selected, $name);
+		return self::getSelect($module, GWF_User::getStaticOrGuest(), $selected, $name);
 	}
 	
 	public static function getSelect(Module_PM $module, GWF_User $user, $selected='0', $name='folders')
@@ -171,5 +171,3 @@ final class GWF_PMFolder extends GDO
 		return self::table(__CLASS__)->update("pmf_count=(SELECT COUNT(*) FROM ".GWF_TABLE_PREFIX.'pm'." WHERE pm_to_folder=pmf_id OR pm_from_folder=pmf_id)");
 	}
 }
-
-?>

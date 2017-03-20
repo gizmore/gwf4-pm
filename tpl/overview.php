@@ -1,9 +1,19 @@
-<h1>
-	<?php echo GWF_Button::options($tVars['href_options'], $lang->lang('btn_options')); ?>
-	<?php echo GWF_Button::search($tVars['href_search'], $lang->lang('btn_search')); ?>
-	<?php echo GWF_Button::trashcan($tVars['href_trashcan'], $lang->lang('btn_trashcan')); ?>
-	<?php echo $lang->lang('pt_pm'); ?>
-</h1>
+<md-menu>
+	<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+		<i class="material-icons">menu</i>
+	</md-button>
+	<md-menu-content width="4">
+		<md-menu-item>
+			<?php echo GWF_Button::options($tVars['href_options'], $lang->lang('btn_options')); ?>
+		</md-menu-item>
+		<md-menu-item>
+			<?php echo GWF_Button::search($tVars['href_search'], $lang->lang('btn_search')); ?>
+		</md-menu-item>
+        <md-menu-item>
+			<?php echo GWF_Button::trashcan($tVars['href_trashcan'], $lang->lang('btn_trashcan')); ?>
+		</md-menu-item>
+	</md-menu-content>
+</md-menu>
 
 <div>
 	<div class="fl"><?php echo $tVars['form_new_folder']; ?></div>

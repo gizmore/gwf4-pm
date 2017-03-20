@@ -4,7 +4,7 @@ final class Module_PM extends GWF_Module
 {
 	# Unread PMCount buffered.
 	private $unread = true;
-	public function getUnreadPMCount() { if ($this->unread === true) { $this->unread = $this->countUnreadPM(GWF_Session::getUser()); } return $this->unread; }
+	public function getUnreadPMCount() { if ($this->unread === true) { $this->unread = $this->countUnreadPM(GWF_User::getStaticOrGuest()); } return $this->unread; }
 	
 	##################
 	### GWF_Module ###
@@ -25,6 +25,16 @@ final class Module_PM extends GWF_Module
 		require_once 'GWF_PMInstall.php';
 		return GWF_PMInstall::install($this, $dropTable);
 	}
+	
+	
+	################
+	### Instance ###
+	################
+	private static $instance;
+	/**
+	 * @return Module_PM
+	 */
+	public static function instance() { return self::$instance; }
 
 	##############
 	### Config ###
@@ -54,6 +64,11 @@ final class Module_PM extends GWF_Module
 	###############
 	### Startup ###
 	###############
+	public function onStartup()
+	{
+		self::$instance = $this;
+	}
+
 	public function onAddHooks()
 	{
 		# Add Hooks

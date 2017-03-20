@@ -21,15 +21,9 @@ final class PM_Send extends GWF_Method
 			return $this->create();
 		}
 		
-		# IE Oo
-		if (false !== (Common::getPost('username'))) {
-			return $this->create();
-		}
-		
 		if (false !== ($error = $this->sanitize())) {
 			return $error;
 		}
-		
 
 		if (false !== (Common::getPost('preview'))) {
 			return $this->preview();
